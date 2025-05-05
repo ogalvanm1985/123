@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabla con QR</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        td {
+            width: 50%;
+            text-align: center;
+            border: 1px solid black;
+            padding: 10px;
+        }
+        img {
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <table id="tabla">
+    </table>
+
+    <script>
+        const imagenURL = "imagen.jpg"; // Reemplaza con la URL de la imagen deseada
+        const inicioNumero = 250000;
+        const filas = 10;
+
+        const tabla = document.getElementById("tabla");
+
+        for (let i = 0; i < filas; i++) {
+            let fila = document.createElement("tr");
+
+            for (let j = 0; j < 2; j++) {
+                let celda = document.createElement("td");
+
+                let imagen = document.createElement("img");
+                imagen.src = imagenURL;
+                celda.appendChild(imagen);
+
+                let numero = document.createElement("p");
+                let numeroActual = inicioNumero + (i * 2) + j;
+                numero.textContent = numeroActual;
+                celda.appendChild(numero);
+
+                let qrDiv = document.createElement("div");
+                new QRCode(qrDiv, numeroActual.toString());
+                celda.appendChild(qrDiv);
+
+                fila.appendChild(celda);
+            }
+
+            tabla.appendChild(fila);
+        }
+    </script>
+</body>
+</html>
